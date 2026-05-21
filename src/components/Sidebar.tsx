@@ -2,16 +2,19 @@ import React from "react";
 import { 
   LayoutDashboard, 
   Box, 
-  Users
+  Users,
+  X
 } from "lucide-react";
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   isDarkMode: boolean;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function Sidebar({ activeTab, setActiveTab, isDarkMode }: SidebarProps) {
+export default function Sidebar({ activeTab, setActiveTab, isDarkMode, isOpen, onClose }: SidebarProps) {
   const menuItems = [
     { id: "global", name: "Suivi global", icon: LayoutDashboard },
     { id: "modules", name: "Situation modules", icon: Box },
@@ -19,10 +22,20 @@ export default function Sidebar({ activeTab, setActiveTab, isDarkMode }: Sidebar
   ];
 
   return (
-    <aside className="w-64 bg-brand-navy min-h-screen text-slate-300 flex flex-col justify-between border-r border-brand-navy-light shrink-0 select-none z-10 transition-colors duration-300">
+    <aside className={`w-64 bg-brand-navy min-h-screen text-slate-300 flex flex-col justify-between border-r border-brand-navy-light shrink-0 select-none z-50 transition-all duration-300 ease-in-out fixed lg:relative lg:flex ${
+      isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full lg:translate-x-0"
+    }`}>
       {/* Upper Brand Section */}
       <div>
-        <div className="p-6 border-b border-brand-navy-light">
+        <div className="p-6 border-b border-brand-navy-light relative">
+          {/* Close button on mobile */}
+          <button 
+            onClick={onClose}
+            className="lg:hidden absolute top-4 right-4 text-slate-400 hover:text-white p-2 hover:bg-brand-navy-light rounded-lg transition-colors"
+          >
+            <X size={18} />
+          </button>
+
           <div className="flex flex-col gap-2">
             <img 
               src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1771338339/Logo_Thales_White_3_l4ut7h.png" 
@@ -55,7 +68,10 @@ export default function Sidebar({ activeTab, setActiveTab, isDarkMode }: Sidebar
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  onClose();
+                }}
                 className={`w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-sm text-left transition-all duration-300 pointer-events-auto group ${
                   isActive
                     ? "bg-brand-navy-light text-brand-neon-green border-l-2 border-brand-neon-green font-medium"

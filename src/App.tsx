@@ -42,6 +42,7 @@ import {
 export default function App() {
   // Navigation active tab
   const [activeTab, setActiveTab] = useState<string>("global");
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   // Core structured states
   const [modules, setModules] = useState<ProjectModule[]>(initialModules.filter(m => m.category !== "ERP_X3"));
@@ -430,13 +431,23 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen flex text-slate-800 dark:text-slate-100 bg-[#F5F7FA] dark:bg-brand-navy select-none transition-colors duration-300 font-sans`}>
+    <div className={`min-h-screen flex text-slate-800 dark:text-slate-100 bg-[#F5F7FA] dark:bg-brand-navy select-none transition-colors duration-300 font-sans relative`}>
       
+      {/* Mobile Drawer Overlay backdrop */}
+      {isSidebarOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/55 backdrop-blur-sm z-45 transition-opacity duration-300 pointer-events-auto"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar Navigation */}
       <Sidebar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         isDarkMode={isDarkMode}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
 
       {/* Main Container Right */}
@@ -456,10 +467,11 @@ export default function App() {
           lastSyncTime={lastSyncTime}
           environment={environment}
           setEnvironment={setEnvironment}
+          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         />
 
         {/* Scrollable primary content canvas */}
-        <main className="flex-1 overflow-y-auto p-8 max-w-[1600px] w-full mx-auto">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-8 max-w-[1600px] w-full mx-auto">
           {renderActiveView()}
         </main>
         

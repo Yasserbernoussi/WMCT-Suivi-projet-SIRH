@@ -10,7 +10,8 @@ import {
   Sparkles,
   Search,
   CheckCircle,
-  Database
+  Database,
+  Menu
 } from "lucide-react";
 
 interface TopbarProps {
@@ -26,6 +27,7 @@ interface TopbarProps {
   lastSyncTime: string;
   environment: string;
   setEnvironment: (env: string) => void;
+  onToggleSidebar: () => void;
 }
 
 export default function Topbar({
@@ -40,7 +42,8 @@ export default function Topbar({
   setGlobalSearch,
   lastSyncTime,
   environment,
-  setEnvironment
+  setEnvironment,
+  onToggleSidebar
 }: TopbarProps) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showExportOptions, setShowExportOptions] = useState(false);
@@ -64,24 +67,33 @@ export default function Topbar({
   ];
 
   return (
-    <header className="h-20 bg-white dark:bg-brand-navy border-b border-slate-200 dark:border-brand-navy-light px-8 flex items-center justify-between shrink-0 transition-colors duration-300 relative z-20">
+    <header className="h-20 bg-white dark:bg-brand-navy border-b border-slate-200 dark:border-brand-navy-light px-4 sm:px-8 flex items-center justify-between shrink-0 transition-colors duration-300 relative z-20">
       
       {/* Left side: Project identity & Breadcrumb */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-3 sm:gap-6">
+        {/* Toggle Sidebar hamburger on mobile */}
+        <button
+          onClick={onToggleSidebar}
+          className="lg:hidden p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-brand-navy-light transition-colors duration-200"
+          aria-label="Toggle menu"
+        >
+          <Menu size={20} />
+        </button>
+
         <div>
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
-            <span>Thales Informatique</span>
-            <ChevronRight size={12} />
+            <span className="hidden xs:inline">Thales Informatique</span>
+            <ChevronRight size={12} className="hidden xs:inline" />
             <span className="text-brand-accent-blue dark:text-brand-neon-green font-medium">
               {tabLabels[activeTab] || "Dashboard"}
             </span>
           </div>
           
-          <div className="flex items-baseline gap-2.5 mt-1">
-            <h1 className="text-xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
+          <div className="flex items-baseline gap-2.5 mt-0.5">
+            <h1 className="text-base sm:text-xl font-display font-bold text-slate-900 dark:text-white tracking-tight truncate max-w-[120px] sm:max-w-none">
               {projectName}
             </h1>
-            <span className="text-xs text-slate-500 dark:text-slate-400 border-l border-slate-300 dark:border-brand-navy-lighter pl-2.5 font-medium">
+            <span className="hidden sm:inline text-xs text-slate-500 dark:text-slate-400 border-l border-slate-300 dark:border-brand-navy-lighter pl-2.5 font-medium">
               {projectSubtitle}
             </span>
           </div>
