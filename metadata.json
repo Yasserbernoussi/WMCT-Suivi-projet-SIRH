@@ -1,0 +1,6 @@
+{
+  "name": "Suivi Projet SIRH",
+  "description": "Portail premium de suivi de projet SIRH Sage 100c Paie & RH et Sage Espace Employés pour MarsaMaroc.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,563 @@
+import { ProjectModule, Resource, ProjectTask, ProjectRisk, ClientSociety } from "./types";
+
+export const initialModules: ProjectModule[] = [
+  {
+    id: "mod-paie",
+    name: "Sage 100c Paie & RH",
+    category: "Paie_RH",
+    status: "in_progress",
+    progress: 35,
+    responsibleId: "res-1",
+    workloadDays: 24,
+    targetGoLive: "2026-09-01",
+    description: "Migration des profils de paie, des rubriques de cotisations standard et spécifiques, et paramétrage des déclaratifs.",
+    tasksCount: 6,
+    completedTasksCount: 1,
+  },
+  {
+    id: "mod-conges",
+    name: "Espace Employés — Congés & Absences",
+    category: "Espace_Employes",
+    status: "in_progress",
+    progress: 20,
+    responsibleId: "res-2",
+    workloadDays: 12,
+    targetGoLive: "2026-09-15",
+    description: "Mise en place des circuits de validation de congés, synchronisation des soldes depuis la Paie Sage 100c.",
+    tasksCount: 4,
+    completedTasksCount: 0,
+  },
+  {
+    id: "mod-frais",
+    name: "Espace Employés — Notes de Frais",
+    category: "Espace_Employes",
+    status: "not_started",
+    progress: 0,
+    responsibleId: "res-3",
+    workloadDays: 14,
+    targetGoLive: "2026-10-01",
+    description: "Configuration des règles de remboursement, barèmes kilométriques, flux de justificatifs dématérialisés.",
+    tasksCount: 3,
+    completedTasksCount: 0,
+  },
+  {
+    id: "mod-salarie",
+    name: "Espace Employés — Dossier Salarié",
+    category: "Espace_Employes",
+    status: "in_progress",
+    progress: 45,
+    responsibleId: "res-2",
+    workloadDays: 10,
+    targetGoLive: "2026-09-01",
+    description: "Coffre-fort numérique, dématérialisation des contrats de travail et fiches de poste, onboarding autonome.",
+    tasksCount: 4,
+    completedTasksCount: 1,
+  },
+  {
+    id: "mod-ventes",
+    name: "Ventes / ADV (Sage X3)",
+    category: "ERP_X3",
+    status: "not_started",
+    progress: 10,
+    responsibleId: "res-4",
+    workloadDays: 8,
+    targetGoLive: "2026-11-01",
+    description: "Migration des flux ADV, tarification dynamique, interfaçage avec le SIRH pour refacturation.",
+    tasksCount: 1,
+    completedTasksCount: 0,
+  },
+  {
+    id: "mod-prod",
+    name: "Production (Sage X3)",
+    category: "ERP_X3",
+    status: "not_started",
+    progress: 5,
+    responsibleId: "res-5",
+    workloadDays: 6,
+    targetGoLive: "2026-12-01",
+    description: "Gammes opératoires, ordres de fabrication, synchronisation des temps salariés saisis sur mobile.",
+    tasksCount: 1,
+    completedTasksCount: 0,
+  },
+  {
+    id: "mod-compta",
+    name: "Comptabilité & Finance",
+    category: "ERP_X3",
+    status: "not_started",
+    progress: 15,
+    responsibleId: "res-1",
+    workloadDays: 5,
+    targetGoLive: "2026-10-15",
+    description: "Écritures automatiques de paie, analytique, plans comptables croisés, clôture annuelle.",
+    tasksCount: 1,
+    completedTasksCount: 0,
+  },
+  {
+    id: "mod-analytique",
+    name: "Analytique & Reporting",
+    category: "ERP_X3",
+    status: "not_started",
+    progress: 0,
+    responsibleId: "res-3",
+    workloadDays: 4,
+    targetGoLive: "2026-12-15",
+    description: "Axes analytiques par département, tableaux de bord de suivi RH croisés avec la comptabilité analytique.",
+    tasksCount: 1,
+    completedTasksCount: 0,
+  },
+  {
+    id: "mod-qualite",
+    name: "Qualité & Audit",
+    category: "ERP_X3",
+    status: "not_started",
+    progress: 0,
+    responsibleId: "res-5",
+    workloadDays: 2,
+    targetGoLive: "2027-01-15",
+    description: "Procédures d'approbation et audits de conformité RGPD pour le dossier salarié et fiches de paie.",
+    tasksCount: 1,
+    completedTasksCount: 0,
+  },
+  {
+    id: "mod-gestion",
+    name: "Gestion de Projet",
+    category: "ERP_X3",
+    status: "in_progress",
+    progress: 50,
+    responsibleId: "res-4",
+    workloadDays: 2,
+    targetGoLive: "2027-02-01",
+    description: "Pilotage d'intégration, comités de direction TI x MarsaMaroc, gestion globale du changement.",
+    tasksCount: 1,
+    completedTasksCount: 0,
+  },
+  {
+    id: "mod-interface-sap",
+    name: "interface comptable SAP-FI",
+    category: "Interface",
+    status: "in_progress",
+    progress: 15,
+    responsibleId: "res-1",
+    workloadDays: 6,
+    targetGoLive: "2026-07-15",
+    description: "Schéma d'interfaçage comptable reliant la Paie 100c et la comptabilité générale SAP-FI.",
+    tasksCount: 2,
+    completedTasksCount: 0,
+  },
+  {
+    id: "mod-migration-dc",
+    name: "Migration dataCenter externe vers On-Prem",
+    category: "Interface",
+    status: "in_progress",
+    progress: 10,
+    responsibleId: "res-1",
+    workloadDays: 15,
+    targetGoLive: "2026-10-31",
+    description: "Migration globale des infrastructures d'hébergement d'un dataCenter externe vers les serveurs On-Premises locaux de MarsaMaroc et intégration sécurisée.",
+    tasksCount: 2,
+    completedTasksCount: 0,
+  }
+];
+
+export const initialResources: Resource[] = [
+  // Chef de Projet
+  {
+    id: "res-4",
+    name: "Moussa REDA",
+    company: "Thales Informatique",
+    role: "Chef de Projet",
+    workloadAllocated: 16,
+    workloadUsed: 3,
+    avatar: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1779381670/MOUSSA_nigkfc.jpg",
+    status: "active",
+    email: "m.reda@marsamaroc.ma"
+  },
+  // Consultants Fonctionnelle SIRH
+  {
+    id: "res-2",
+    name: "Halima BENLAHCEN",
+    company: "Thales Informatique",
+    role: "Consultante Fonctionnelle SIRH",
+    workloadAllocated: 18,
+    workloadUsed: 3,
+    avatar: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1779381670/HALIMA_l9zxiy.jpg",
+    status: "active",
+    email: "h.benlahcen@thales.com"
+  },
+  {
+    id: "res-3",
+    name: "Asmaa CHARAF",
+    company: "Thales Informatique",
+    role: "Consultante Fonctionnelle SIRH",
+    workloadAllocated: 12,
+    workloadUsed: 1,
+    avatar: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1779381670/ASMA_eguwse.jpg",
+    status: "away",
+    email: "a.charaf@marsamaroc.ma"
+  },
+  {
+    id: "res-5",
+    name: "Khadija ZAHMOUNI",
+    company: "Thales Informatique",
+    role: "Consultante Fonctionnelle SIRH",
+    workloadAllocated: 12,
+    workloadUsed: 2,
+    avatar: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1779381670/KHADIJA_jqidr9.jpg",
+    status: "offline",
+    email: "k.zahmouni@marsamaroc.ma"
+  },
+  // Architecte technique
+  {
+    id: "res-1",
+    name: "Redouane EL MKAHEL",
+    company: "Thales Informatique",
+    role: "Architecte technique",
+    workloadAllocated: 24,
+    workloadUsed: 6,
+    avatar: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1779381670/REDOUANE_guzmit.png",
+    status: "active",
+    email: "r.elmkahel@thales.com"
+  },
+  // Chargé de compte
+  {
+    id: "res-6",
+    name: "Yasser Bernoussi",
+    company: "Thales Informatique",
+    role: "Chargé de compte",
+    workloadAllocated: 10,
+    workloadUsed: 2,
+    avatar: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1779381879/1775549450078_evhq3n.jpg",
+    status: "active",
+    email: "y.bernoussi@thales.com"
+  }
+];
+
+export const initialTasks: ProjectTask[] = [
+  {
+    id: "task-1",
+    title: "Initialisation et migration à blanc de la base Sage 100c Paie",
+    moduleId: "mod-paie",
+    assignedToId: "res-1",
+    progress: 100,
+    status: "done",
+    priority: "High",
+    startDate: "2026-05-10",
+    endDate: "2026-05-19"
+  },
+  {
+    id: "task-2",
+    title: "Recettage de la dématérialisation du Dossier Salarié initial",
+    moduleId: "mod-salarie",
+    assignedToId: "res-2",
+    progress: 100,
+    status: "done",
+    priority: "Medium",
+    startDate: "2026-05-12",
+    endDate: "2026-05-20"
+  },
+  {
+    id: "task-3",
+    title: "Paramétrage des rubriques de cotisations complémentaires",
+    moduleId: "mod-paie",
+    assignedToId: "res-1",
+    progress: 45,
+    status: "doing",
+    priority: "High",
+    startDate: "2026-05-18",
+    endDate: "2026-06-05"
+  },
+  {
+    id: "task-4",
+    title: "Interfaçage des soldes de congés SAP vers Sage Espace Employés",
+    moduleId: "mod-conges",
+    assignedToId: "res-2",
+    progress: 30,
+    status: "doing",
+    priority: "High",
+    startDate: "2026-05-20",
+    endDate: "2026-06-10"
+  },
+  {
+    id: "task-5",
+    title: "Configuration des profils d'administration RH & Onboarding",
+    moduleId: "mod-salarie",
+    assignedToId: "res-2",
+    progress: 10,
+    status: "doing",
+    priority: "Medium",
+    startDate: "2026-05-21",
+    endDate: "2026-06-12"
+  },
+  {
+    id: "task-6",
+    title: "Règles d'imputations analytiques et croisées pré-compta",
+    moduleId: "mod-compta",
+    assignedToId: "res-1",
+    progress: 15,
+    status: "doing",
+    priority: "High",
+    startDate: "2026-05-18",
+    endDate: "2026-06-08"
+  },
+  {
+    id: "task-7",
+    title: "Workflow de validation multi-niveau pour les Notes de Frais",
+    moduleId: "mod-frais",
+    assignedToId: "res-3",
+    progress: 0,
+    status: "todo",
+    priority: "High",
+    startDate: "2026-06-01",
+    endDate: "2026-06-25"
+  },
+  {
+    id: "task-8",
+    title: "Déploiement du module OCR/Lecture automatique justificatifs",
+    moduleId: "mod-frais",
+    assignedToId: "res-3",
+    progress: 0,
+    status: "todo",
+    priority: "Medium",
+    startDate: "2026-06-15",
+    endDate: "2026-07-10"
+  },
+  {
+    id: "task-9",
+    title: "Spécification d'onboarding autonome sur le Dossier Salarié",
+    moduleId: "mod-salarie",
+    assignedToId: "res-2",
+    progress: 0,
+    status: "todo",
+    priority: "Low",
+    startDate: "2026-06-10",
+    endDate: "2026-06-25"
+  },
+  {
+    id: "task-10",
+    title: "Vérification de la conformité DSN & prévisions réglementaires",
+    moduleId: "mod-paie",
+    assignedToId: "res-1",
+    progress: 0,
+    status: "todo",
+    priority: "High",
+    startDate: "2026-07-01",
+    endDate: "2026-07-20"
+  },
+  {
+    id: "task-11",
+    title: "Reprise des historiques de notes de frais des 3 dernières années",
+    moduleId: "mod-frais",
+    assignedToId: "res-3",
+    progress: 0,
+    status: "blocking",
+    priority: "Medium",
+    startDate: "2026-06-05",
+    endDate: "2026-06-18"
+  },
+  {
+    id: "task-12",
+    title: "Intégration et reprise de l'historique de paie d'avant 2025",
+    moduleId: "mod-paie",
+    assignedToId: "res-1",
+    progress: 0,
+    status: "todo",
+    priority: "High",
+    startDate: "2026-06-15",
+    endDate: "2026-07-15"
+  },
+  {
+    id: "task-13",
+    title: "Scénario de tests de charge - Calcul simultané de 5000 fiches de paie",
+    moduleId: "mod-paie",
+    assignedToId: "res-1",
+    progress: 0,
+    status: "todo",
+    priority: "Medium",
+    startDate: "2026-07-15",
+    endDate: "2026-08-05"
+  },
+  {
+    id: "task-14",
+    title: "Double-saisie comparative Paie de Mai & Juin 2026",
+    moduleId: "mod-paie",
+    assignedToId: "res-1",
+    progress: 0,
+    status: "todo",
+    priority: "High",
+    startDate: "2026-05-25",
+    endDate: "2026-06-30"
+  },
+  {
+    id: "task-15",
+    title: "Finalisation du schéma directeur de flux ADV de Sage X3",
+    moduleId: "mod-ventes",
+    assignedToId: "res-4",
+    progress: 10,
+    status: "doing",
+    priority: "Medium",
+    startDate: "2026-05-18",
+    endDate: "2026-06-10"
+  },
+  {
+    id: "task-16",
+    title: "Cadrage fonctionnel module Production et cycles de fabrication",
+    moduleId: "mod-prod",
+    assignedToId: "res-5",
+    progress: 5,
+    status: "doing",
+    priority: "Low",
+    startDate: "2026-05-20",
+    endDate: "2026-06-15"
+  },
+  {
+    id: "task-17",
+    title: "Audit de conformité RGPD de la gestion de coffre-fort",
+    moduleId: "mod-qualite",
+    assignedToId: "res-5",
+    progress: 0,
+    status: "todo",
+    priority: "High",
+    startDate: "2026-08-01",
+    endDate: "2026-08-15"
+  },
+  {
+    id: "task-18",
+    title: "Mise en place de l'outil d'exportation automatisé",
+    moduleId: "mod-gestion",
+    assignedToId: "res-4",
+    progress: 0,
+    status: "todo",
+    priority: "Low",
+    startDate: "2026-07-01",
+    endDate: "2026-07-10"
+  },
+  {
+    id: "task-19",
+    title: "Initialisation globale du plan de communication de migration",
+    moduleId: "mod-conges",
+    assignedToId: "res-2",
+    progress: 0,
+    status: "todo",
+    priority: "Low",
+    startDate: "2026-06-20",
+    endDate: "2026-07-05"
+  },
+  {
+    id: "task-20",
+    title: "Cartographie des flux & comptes comptables OD de paie (OD SAP)",
+    moduleId: "mod-interface-sap",
+    assignedToId: "res-1",
+    progress: 30,
+    status: "doing",
+    priority: "High",
+    startDate: "2026-05-20",
+    endDate: "2026-06-12"
+  },
+  {
+    id: "task-21",
+    title: "Tests d'intégration de fichiers d'écritures de paie dans SAP-FI (Sandbox)",
+    moduleId: "mod-interface-sap",
+    assignedToId: "res-4",
+    progress: 0,
+    status: "todo",
+    priority: "Medium",
+    startDate: "2026-06-10",
+    endDate: "2026-06-30"
+  },
+  {
+    id: "task-22",
+    title: "Audit et inventaire technique de l'architecture serveur actuelle du dataCenter",
+    moduleId: "mod-migration-dc",
+    assignedToId: "res-1",
+    progress: 40,
+    status: "doing",
+    priority: "High",
+    startDate: "2026-05-15",
+    endDate: "2026-06-15"
+  },
+  {
+    id: "task-23",
+    title: "Mise en place de l'infrastructure On-Premises cible (Serveurs & Réseau locaux)",
+    moduleId: "mod-migration-dc",
+    assignedToId: "res-1",
+    progress: 0,
+    status: "todo",
+    priority: "High",
+    startDate: "2026-06-16",
+    endDate: "2026-07-30"
+  }
+];
+
+export const initialRisks: ProjectRisk[] = [
+  {
+    id: "risk-1",
+    title: "Retard de transmission des soldes d'absences SAP",
+    category: "Technique",
+    severity: "High",
+    status: "Active",
+    mitigation: "Mettre en place un extracteur de secours par script Python autonome ou import manuel via Excel structuré.",
+    reporterId: "res-2"
+  },
+  {
+    id: "risk-2",
+    title: "Décalage réglementaire DSN de dernière minute",
+    category: "Légal",
+    severity: "Medium",
+    status: "Active",
+    mitigation: "Abonnement direct aux bulletin de sécurité Sage et préparation d'un patch d'urgence par le consultant Sage Partner.",
+    reporterId: "res-1"
+  },
+  {
+    id: "risk-3",
+    title: "Refus de signature électronique des contrats dématérialisés",
+    category: "Conduite du changement",
+    severity: "Low",
+    status: "Mitigated",
+    mitigation: "Session de formation dédiée aux partenaires sociaux et délégués syndicaux sur la conformité de Yousign.",
+    reporterId: "res-2"
+  },
+  {
+    id: "risk-4",
+    title: "Prise en main tardive des validateurs de fiches de frais",
+    category: "Organisationnel",
+    severity: "Medium",
+    status: "Active",
+    mitigation: "Simulations réelles avec 10 managers pilotes à partir du 1er Juin 2026.",
+    reporterId: "res-3"
+  }
+];
+
+export const initialSocieties: ClientSociety[] = [
+  {
+    id: "soc-1",
+    name: "Sage Holding France SAS",
+    headcount: 1420,
+    status: "in_progress",
+    migrationPercentage: 45,
+    goLiveDate: "2026-09-01"
+  },
+  {
+    id: "soc-2",
+    name: "Sage Production Nord SARL",
+    headcount: 550,
+    status: "in_progress",
+    migrationPercentage: 15,
+    goLiveDate: "2026-10-15"
+  },
+  {
+    id: "soc-3",
+    name: "Sage Logistics Est",
+    headcount: 320,
+    status: "pending",
+    migrationPercentage: 0,
+    goLiveDate: "2026-12-01"
+  },
+  {
+    id: "soc-4",
+    name: "Sage Services Services SA",
+    headcount: 680,
+    status: "pending",
+    migrationPercentage: 0,
+    goLiveDate: "2026-11-01"
+  }
+];
