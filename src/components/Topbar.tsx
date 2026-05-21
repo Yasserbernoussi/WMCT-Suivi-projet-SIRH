@@ -238,7 +238,7 @@ export default function Topbar({
             YB
           </div>
           <div className="text-left leading-none">
-            <p className="text-xs font-bold text-slate-800 dark:text-slate-200">Sage Integrator</p>
+            <p className="text-xs font-bold text-slate-800 dark:text-slate-200">Consultant TI</p>
             <span className="text-[10px] text-slate-400 dark:text-slate-400">Yasser Bernoussi</span>
           </div>
         </div>

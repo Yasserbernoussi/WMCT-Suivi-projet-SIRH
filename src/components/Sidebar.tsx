@@ -23,11 +23,14 @@ export default function Sidebar({ activeTab, setActiveTab, isDarkMode }: Sidebar
       {/* Upper Brand Section */}
       <div>
         <div className="p-6 border-b border-brand-navy-light">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 bg-brand-neon-green rounded-lg flex items-center justify-center shadow-lg shadow-brand-neon-green-glow animate-pulse">
-              <span className="text-brand-navy font-display font-bold text-xl">T</span>
-            </div>
-            <div>
+          <div className="flex flex-col gap-2">
+            <img 
+              src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1771338339/Logo_Thales_White_3_l4ut7h.png" 
+              alt="Thales Informatique" 
+              className="h-12 object-contain self-start"
+              referrerPolicy="no-referrer"
+            />
+            <div className="mt-1">
               <h2 className="text-white font-display font-bold tracking-tight text-sm leading-tight">Thales Informatique</h2>
               <span className="text-xs text-brand-neon-green font-mono font-medium tracking-widest uppercase">PROJET SIRH</span>
             </div>
